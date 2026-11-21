@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 原创图标：金色四角星 + 上升的累计概率曲线。不含任何游戏角色或官方图案。 -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1d2c4f"/>
+      <stop offset="1" stop-color="#0c1426"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffe3a1"/>
+      <stop offset="1" stop-color="#d99a32"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.42" r="0.45">
+      <stop offset="0" stop-color="#ffd27a" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#ffd27a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <circle cx="256" cy="214" r="190" fill="url(#glow)"/>
+  <!-- 累计概率曲线（S 形） -->
+  <path d="M84 404 C 190 404, 220 396, 262 330 S 330 150, 428 140" fill="none" stroke="#7fa6e6" stroke-width="18" stroke-linecap="round" opacity="0.85"/>
+  <path d="M84 404 C 190 404, 220 396, 262 330 S 330 150, 428 140 L 428 430 L 84 430 Z" fill="#7fa6e6" opacity="0.12"/>
+  <!-- 四角星 -->
+  <path d="M256 70 C 268 160, 292 186, 372 198 C 292 210, 268 236, 256 326 C 244 236, 220 210, 140 198 C 220 186, 244 160, 256 70 Z" fill="url(#gold)"/>
+  <circle cx="372" cy="104" r="14" fill="#ffe3a1" opacity="0.9"/>
+  <circle cx="146" cy="300" r="9" fill="#ffe3a1" opacity="0.7"/>
+</svg>
