@@ -6,7 +6,7 @@
  *   不再每次打开都重下；视频播放器的分段请求（Range）从缓存里切给它。
  * - 动画清单（clips/manifest.json）：每次先联网取最新，断网才用缓存。
  */
-const VERSION = 'v1';
+const VERSION = 'v2';
 const PAGE_CACHE = `pages-${VERSION}`;
 const IMG_CACHE = `images-${VERSION}`;
 const CLIP_CACHE = 'clips-v1';

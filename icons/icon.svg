@@ -1,26 +1,52 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- 原创图标：金色四角星 + 上升的累计概率曲线。不含任何游戏角色或官方图案。 -->
+  <!-- 集米桶：一只金色的桶，三颗星星落进去。用于网页图标、安卓图标（scripts 里由 sharp 转成各尺寸 PNG） -->
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#1d2c4f"/>
-      <stop offset="1" stop-color="#0c1426"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#2a2160"/>
+      <stop offset="0.55" stop-color="#17123a"/>
+      <stop offset="1" stop-color="#0c0a22"/>
     </linearGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ffe3a1"/>
-      <stop offset="1" stop-color="#d99a32"/>
-    </linearGradient>
-    <radialGradient id="glow" cx="0.5" cy="0.42" r="0.45">
-      <stop offset="0" stop-color="#ffd27a" stop-opacity="0.45"/>
-      <stop offset="1" stop-color="#ffd27a" stop-opacity="0"/>
+    <radialGradient id="halo" cx="0.5" cy="0.42" r="0.5">
+      <stop offset="0" stop-color="#ffd98a" stop-opacity="0.38"/>
+      <stop offset="0.55" stop-color="#a98bff" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#a98bff" stop-opacity="0"/>
     </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#b9792a"/>
+      <stop offset="0.28" stop-color="#f3cf7a"/>
+      <stop offset="0.5" stop-color="#fff0c2"/>
+      <stop offset="0.72" stop-color="#e6b456"/>
+      <stop offset="1" stop-color="#a8681f"/>
+    </linearGradient>
+    <linearGradient id="band" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7a4a14"/>
+      <stop offset="0.5" stop-color="#c88f3a"/>
+      <stop offset="1" stop-color="#6e4210"/>
+    </linearGradient>
+    <radialGradient id="mouth" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff6d6"/>
+      <stop offset="0.35" stop-color="#ffd27a"/>
+      <stop offset="1" stop-color="#3a2206"/>
+    </radialGradient>
+    <linearGradient id="star" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#ffd98a"/>
+    </linearGradient>
   </defs>
-  <rect width="512" height="512" fill="url(#bg)"/>
-  <circle cx="256" cy="214" r="190" fill="url(#glow)"/>
-  <!-- 累计概率曲线（S 形） -->
-  <path d="M84 404 C 190 404, 220 396, 262 330 S 330 150, 428 140" fill="none" stroke="#7fa6e6" stroke-width="18" stroke-linecap="round" opacity="0.85"/>
-  <path d="M84 404 C 190 404, 220 396, 262 330 S 330 150, 428 140 L 428 430 L 84 430 Z" fill="#7fa6e6" opacity="0.12"/>
-  <!-- 四角星 -->
-  <path d="M256 70 C 268 160, 292 186, 372 198 C 292 210, 268 236, 256 326 C 244 236, 220 210, 140 198 C 220 186, 244 160, 256 70 Z" fill="url(#gold)"/>
-  <circle cx="372" cy="104" r="14" fill="#ffe3a1" opacity="0.9"/>
-  <circle cx="146" cy="300" r="9" fill="#ffe3a1" opacity="0.7"/>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="116" fill="url(#halo)"/>
+  <!-- 星星（四芒星） -->
+  <path d="M256 70 L268 112 L310 124 L268 136 L256 178 L244 136 L202 124 L244 112 Z" fill="url(#star)"/>
+  <path d="M176 150 L183 172 L205 179 L183 186 L176 208 L169 186 L147 179 L169 172 Z" fill="url(#star)" opacity="0.9"/>
+  <path d="M338 168 L344 186 L362 192 L344 198 L338 216 L332 198 L314 192 L332 186 Z" fill="url(#star)" opacity="0.85"/>
+  <!-- 桶身 -->
+  <path d="M132 262 H380 L352 420 Q349 438 330 438 H182 Q163 438 160 420 Z" fill="url(#gold)"/>
+  <!-- 两道箍 -->
+  <path d="M141 312 H371 L367 334 H145 Z" fill="url(#band)" opacity="0.85"/>
+  <path d="M152 378 H360 L356 398 H156 Z" fill="url(#band)" opacity="0.85"/>
+  <!-- 桶口 -->
+  <ellipse cx="256" cy="262" rx="126" ry="30" fill="url(#gold)"/>
+  <ellipse cx="256" cy="262" rx="108" ry="20" fill="url(#mouth)"/>
+  <!-- 高光 -->
+  <path d="M178 282 Q184 360 196 424" stroke="#fff6d6" stroke-opacity="0.55" stroke-width="10" stroke-linecap="round" fill="none"/>
 </svg>

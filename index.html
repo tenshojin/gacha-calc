@@ -3,16 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>抽卡期望计算器</title>
-    <meta name="description" content="原神 / 崩坏：星穹铁道 / 绝区零 抽卡期望计算器。非盈利个人同人作品，与米哈游 / HoYoverse 无关。" />
+    <title>集米桶</title>
+    <meta name="description" content="集米桶：原神 / 崩坏：星穹铁道 / 绝区零 的抽卡期望计算、抽卡模拟和角色图鉴。非盈利个人同人作品，与米哈游 / HoYoverse 无关。" />
     <meta name="theme-color" content="#0f1a2e" />
-    <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
+    <link rel="icon" type="image/png" href="./icons/favicon-64.png" />
     <link rel="manifest" href="./manifest.webmanifest" />
     <!-- 苹果：添加到主屏幕后全屏打开 -->
+    <!-- 开场壁纸：页面一打开就开始下载（不用等脚本） -->
+    <link rel="preload" as="image" href="./assets/gate/genshin-m.webp" imagesrcset="./assets/gate/genshin-s.webp 900w, ./assets/gate/genshin-m.webp 1600w, ./assets/gate/genshin.webp 3200w" imagesizes="(max-width: 767px) 130vw, 178vh" fetchpriority="high" />
+    <link rel="preload" as="image" href="./assets/gate/hsr-m.webp" imagesrcset="./assets/gate/hsr-s.webp 900w, ./assets/gate/hsr-m.webp 1600w, ./assets/gate/hsr.webp 3200w" imagesizes="(max-width: 767px) 130vw, 178vh" fetchpriority="high" />
+    <link rel="preload" as="image" href="./assets/gate/zzz-m.webp" imagesrcset="./assets/gate/zzz-s.webp 900w, ./assets/gate/zzz-m.webp 1600w, ./assets/gate/zzz.webp 3200w" imagesizes="(max-width: 767px) 130vw, 178vh" fetchpriority="high" />
     <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="抽卡计算" />
+    <meta name="apple-mobile-web-app-title" content="集米桶" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <script>
       // 页面画出来之前先定好白天 / 黑夜，避免闪一下（规则和 src/ui/theme.ts 一致）
@@ -24,9 +28,9 @@
         document.documentElement.dataset.theme = pref === 'auto' ? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : pref;
       })();
     </script>
-    <script type="module" crossorigin src="./static/index-BmImfu-_.js"></script>
-    <link rel="modulepreload" crossorigin href="./static/i18n-QXEOHnN_.js">
-    <link rel="stylesheet" crossorigin href="./static/index-2eyAXNZ_.css">
+    <script type="module" crossorigin src="./static/index-DGrZ_KM4.js"></script>
+    <link rel="modulepreload" crossorigin href="./static/i18n-1ggfZsCw.js">
+    <link rel="stylesheet" crossorigin href="./static/index-D2oG4C2b.css">
   </head>
   <body>
     <div id="root"></div>
