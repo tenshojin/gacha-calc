@@ -1,0 +1,126 @@
+{
+ "genshin": {
+  "single-5": {
+   "variants": {
+    "720": "genshin/single-5.720.mp4?h=9fcd93b322",
+    "1080": "genshin/single-5.1080.mp4?h=7dfb7d7c9c",
+    "4k": "genshin/single-5.4k.mp4?h=d19859ff29"
+   },
+   "duration": 6.1,
+   "source": "https://www.bilibili.com/video/BV1x3UNYDEw2"
+  },
+  "single-3": {
+   "variants": {
+    "720": "genshin/single-3.720.mp4?h=b6b7dc809b",
+    "1080": "genshin/single-3.1080.mp4?h=0150f39904",
+    "4k": "genshin/single-3.4k.mp4?h=cc853804fb"
+   },
+   "duration": 6.07,
+   "source": "https://www.bilibili.com/video/BV1x3UNYDEw2"
+  },
+  "single-4": {
+   "variants": {
+    "720": "genshin/single-4.720.mp4?h=3042e91069",
+    "1080": "genshin/single-4.1080.mp4?h=eb35fa9d53",
+    "4k": "genshin/single-4.4k.mp4?h=f4da54054f"
+   },
+   "duration": 6.47,
+   "source": "https://www.bilibili.com/video/BV1x3UNYDEw2"
+  },
+  "ten-5": {
+   "variants": {
+    "720": "genshin/ten-5.720.mp4?h=6065ef999a",
+    "1080": "genshin/ten-5.1080.mp4?h=922c7b697f",
+    "4k": "genshin/ten-5.4k.mp4?h=6996c8f256"
+   },
+   "duration": 6.12,
+   "source": "https://www.bilibili.com/video/BV1x3UNYDEw2"
+  },
+  "ten-4": {
+   "variants": {
+    "720": "genshin/ten-4.720.mp4?h=5e200547e2",
+    "1080": "genshin/ten-4.1080.mp4?h=ed3e250477",
+    "4k": "genshin/ten-4.4k.mp4?h=1db614b820"
+   },
+   "duration": 6.38,
+   "source": "https://www.bilibili.com/video/BV1x3UNYDEw2"
+  },
+  "radiance-ten": {
+   "variants": {
+    "720": "genshin/radiance-ten.720.mp4?h=049c9b3eac",
+    "1080": "genshin/radiance-ten.1080.mp4?h=da8872236b",
+    "4k": "genshin/radiance-ten.4k.mp4?h=990eb1f6ec"
+   },
+   "duration": 7.56,
+   "source": "https://www.bilibili.com/video/BV1x3UNYDEw2"
+  },
+  "radiance": {
+   "variants": {
+    "720": "genshin/radiance.720.mp4?h=9a787ec667",
+    "1080": "genshin/radiance.1080.mp4?h=3df6c1afbb"
+   },
+   "duration": 7.5,
+   "source": "https://www.bilibili.com/video/BV1DVNLz4EzR"
+  }
+ },
+ "hsr": {
+  "single-3": {
+   "variants": {
+    "720": "hsr/single-3.720.mp4?h=9ee79bc9dc",
+    "1080": "hsr/single-3.1080.mp4?h=f52c399801"
+   },
+   "duration": 15,
+   "source": "https://www.bilibili.com/video/BV17T411Q7bQ"
+  },
+  "ten-4": {
+   "variants": {
+    "720": "hsr/ten-4.720.mp4?h=51c9d7fc25",
+    "1080": "hsr/ten-4.1080.mp4?h=0f0128de2a"
+   },
+   "duration": 14.95,
+   "source": "https://www.bilibili.com/video/BV1tK421C71X"
+  },
+  "ten-5": {
+   "variants": {
+    "720": "hsr/ten-5.720.mp4?h=c9dbfb4cf6",
+    "1080": "hsr/ten-5.1080.mp4?h=2de19a6960"
+   },
+   "duration": 16.5,
+   "source": "https://www.bilibili.com/video/BV1tK421C71X"
+  },
+  "single-4": {
+   "variants": {
+    "720": "hsr/ten-4.720.mp4?h=51c9d7fc25",
+    "1080": "hsr/ten-4.1080.mp4?h=0f0128de2a"
+   },
+   "duration": 14.95,
+   "source": "https://www.bilibili.com/video/BV1tK421C71X"
+  },
+  "single-5": {
+   "variants": {
+    "720": "hsr/ten-5.720.mp4?h=c9dbfb4cf6",
+    "1080": "hsr/ten-5.1080.mp4?h=2de19a6960"
+   },
+   "duration": 16.5,
+   "source": "https://www.bilibili.com/video/BV1tK421C71X"
+  }
+ },
+ "zzz": {
+  "ten-A": {
+   "variants": {
+    "720": "zzz/ten-A.720.mp4?h=84d5afe8f8",
+    "1080": "zzz/ten-A.1080.mp4?h=bd67148d90"
+   },
+   "duration": 12.95,
+   "source": "https://www.bilibili.com/video/BV1RM411d7ZU"
+  },
+  "ten-S": {
+   "variants": {
+    "720": "zzz/ten-S.720.mp4?h=00e08ca23e",
+    "1080": "zzz/ten-S.1080.mp4?h=b15ec221b6"
+   },
+   "duration": 13.9,
+   "source": "https://www.bilibili.com/video/BV12H4y127Xg"
+  }
+ }
+}

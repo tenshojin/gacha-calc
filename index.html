@@ -14,8 +14,19 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-title" content="抽卡计算" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <script type="module" crossorigin src="./static/index-ClmCjdBF.js"></script>
-    <link rel="stylesheet" crossorigin href="./static/index-C4GDiD0i.css">
+    <script>
+      // 页面画出来之前先定好白天 / 黑夜，避免闪一下（规则和 src/ui/theme.ts 一致）
+      (function () {
+        var pref = 'dark';
+        try {
+          pref = (JSON.parse(localStorage.getItem('gacha-tool:app') || '{}').state || {}).theme || 'dark';
+        } catch (e) {}
+        document.documentElement.dataset.theme = pref === 'auto' ? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : pref;
+      })();
+    </script>
+    <script type="module" crossorigin src="./static/index-DSbz9llV.js"></script>
+    <link rel="modulepreload" crossorigin href="./static/i18n-QXEOHnN_.js">
+    <link rel="stylesheet" crossorigin href="./static/index-2eyAXNZ_.css">
   </head>
   <body>
     <div id="root"></div>
