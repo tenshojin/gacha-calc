@@ -1,6 +1,8 @@
 /*
  * 离线缓存（只在线上网页版生效；本地开发和安卓 App 里不注册）。
- * - 网页本身（html / js / css）：先用缓存马上显示，同时后台取新版本（下次打开生效）。
+ * - 首页：先联网取最新，断网才用缓存（以前先用缓存，网站更新后第一次打开会拿到旧首页、旧脚本已删 → 白屏）。
+ * - 打包的脚本 / 样式（static/，文件名带指纹）：任何一版缓存里有就用，没有再下载；上一版的页面缓存保留一版。
+ * - 资料（data/）等其他文件：先用缓存马上显示，同时后台取新版本（下次打开生效）。
  * - 图片（assets/）：有缓存就直接用，没有再下载并存起来。
  * - 抽卡开场动画（clips/*.mp4）：地址带内容指纹（?h=…），下载过一次就一直用缓存，
  *   不再每次打开都重下；视频播放器的分段请求（Range）从缓存里切给它。
@@ -19,7 +21,9 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  const keep = [PAGE_CACHE, IMG_CACHE, CLIP_CACHE];
+  // 上一版的页面缓存先留着：更新那一刻已经打开的旧页面，它要的旧脚本还能从这里拿到（服务器上已经删了）
+  const prevPages = `pages-v${Number(PAGE_VERSION.slice(1)) - 1}`;
+  const keep = [PAGE_CACHE, prevPages, IMG_CACHE, CLIP_CACHE];
   event.waitUntil(
     caches
       .keys()
@@ -48,6 +52,37 @@ self.addEventListener('fetch', (event) => {
         if (res.ok) cache.put(req, res.clone());
         return res;
       }),
+    );
+    return;
+  }
+
+  // 打开页面（首页）：先联网拿最新的，断网才用缓存 —— 首页和它要的脚本永远是同一版（更新后不会白屏）
+  if (req.mode === 'navigate') {
+    event.respondWith(
+      (async () => {
+        const cache = await caches.open(PAGE_CACHE);
+        try {
+          const res = await fetch(req);
+          if (res.ok) cache.put(req, res.clone());
+          return res;
+        } catch (err) {
+          return (await caches.match(req, { ignoreSearch: true })) ?? (await caches.match('./')) ?? Promise.reject(err);
+        }
+      })(),
+    );
+    return;
+  }
+
+  // 打包好的脚本 / 样式（文件名带内容指纹，内容不会变）：任何一版的缓存里有就用，没有再下载
+  if (url.pathname.includes('/static/')) {
+    event.respondWith(
+      (async () => {
+        const hit = await caches.match(req);
+        if (hit) return hit;
+        const res = await fetch(req);
+        if (res.ok) (await caches.open(PAGE_CACHE)).put(req, res.clone());
+        return res;
+      })(),
     );
     return;
   }

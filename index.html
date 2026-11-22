@@ -27,6 +27,24 @@
         } catch (e) {}
         document.documentElement.dataset.theme = pref === 'auto' ? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : pref;
       })();
+      // 保险：网站更新后，如果拿到的是旧页面、它要的脚本 / 样式在服务器上已经没有了（加载失败），自动刷新一次换成新版
+      window.addEventListener(
+        'error',
+        function (e) {
+          var t = e.target;
+          if (!t || (t.tagName !== 'SCRIPT' && t.tagName !== 'LINK')) return;
+          var src = String(t.src || t.href || '');
+          if (src.indexOf('/static/') < 0) return;
+          try {
+            if (sessionStorage.getItem('gacha-tool:reloaded') === '1') return;
+            sessionStorage.setItem('gacha-tool:reloaded', '1');
+          } catch (x) {
+            return;
+          }
+          location.reload();
+        },
+        true,
+      );
     </script>
     <script type="module" crossorigin src="./static/index-4zwaGeFQ.js"></script>
     <link rel="modulepreload" crossorigin href="./static/i18n-C0GxkLxX.js">
