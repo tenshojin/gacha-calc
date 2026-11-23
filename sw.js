@@ -9,7 +9,7 @@
  * - 动画清单（clips/manifest.json）：每次先联网取最新，断网才用缓存。
  */
 // 网页和资料（data/）改了就把 PAGE_VERSION 加一；图片（同名文件重做过）改了才加 IMG_VERSION，免得大家重新下载所有图片
-const PAGE_VERSION = 'v3';
+const PAGE_VERSION = 'v4';
 const IMG_VERSION = 'v2';
 const PAGE_CACHE = `pages-${PAGE_VERSION}`;
 const IMG_CACHE = `images-${IMG_VERSION}`;

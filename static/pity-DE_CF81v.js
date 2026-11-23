@@ -1,0 +1,1 @@
+function e(e,t){return t>=e.hard?1:t<e.softStart?e.base:Math.min(1,e.base+e.step*(t-e.softStart+1))}function t(t,n=0){if(n<0||n>=t.hard)throw Error(`水位 ${n} 超出范围 0..${t.hard-1}`);let r=t.hard-n,i=new Float64Array(r+1),a=1;for(let o=1;o<=r;o++){let r=e(t,n+o);i[o]=a*r,a*=1-r}return i}export{e as n,t};
