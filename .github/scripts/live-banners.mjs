@@ -35,7 +35,8 @@ const serverTime = (s) => {
 };
 const ended = (b, now) => {
   const end = serverTime(b.end_time);
-  return !Number.isNaN(end) && now >= end + 60000;
+  // 结束时间那一分钟走完才算结束（17:59:59 和 17:59:00 都是 18:00:00 结束），和网页 src/data/bannerTime.ts 的 closeTime 一致
+  return !Number.isNaN(end) && now >= Math.floor(end / 60000) * 60000 + 60000;
 };
 
 const clean = (t) => String(t ?? '').replace(/<[^>]+>/g, '').trim();

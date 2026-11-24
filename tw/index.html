@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <base href="../" />
+    <script>window.__entryLang = 'tw';</script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>集米桶｜原神 · 星鐵 · 絕區零 抽卡期望計算器</title>
+    <meta name="description" content="依官方公示的保底規則精確計算抽到想要的角色 / 武器的機率和期望抽數；多版本資源規劃、抽卡模擬（含官方演出）、角色圖鑑、匯入自己的抽卡紀錄看歐非。卡池自動更新，純網頁、不用登入。非官方同人工具，與米哈遊無關。" />
+    <link rel="canonical" href="https://tenshojin.github.io/gacha-calc/tw/" />
+    <link rel="alternate" hreflang="zh-CN" href="https://tenshojin.github.io/gacha-calc/" />
+    <link rel="alternate" hreflang="zh-TW" href="https://tenshojin.github.io/gacha-calc/tw/" />
+    <link rel="alternate" hreflang="ja" href="https://tenshojin.github.io/gacha-calc/ja/" />
+    <link rel="alternate" hreflang="en" href="https://tenshojin.github.io/gacha-calc/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://tenshojin.github.io/gacha-calc/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="集米桶" />
+    <meta property="og:title" content="集米桶｜原神 · 星鐵 · 絕區零 抽卡期望計算器" />
+    <meta property="og:description" content="依官方公示的保底規則精確計算抽到想要的角色 / 武器的機率和期望抽數；多版本資源規劃、抽卡模擬（含官方演出）、角色圖鑑、匯入自己的抽卡紀錄看歐非。卡池自動更新，純網頁、不用登入。非官方同人工具，與米哈遊無關。" />
+    <meta property="og:url" content="https://tenshojin.github.io/gacha-calc/tw/" />
+    <meta property="og:image" content="https://tenshojin.github.io/gacha-calc/og/tw.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:locale:alternate" content="zh_CN" />
+    <meta property="og:locale:alternate" content="ja_JP" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0f1a2e" />
+    <link rel="icon" type="image/png" href="./icons/favicon-64.png" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <!-- 苹果：添加到主屏幕后全屏打开 -->
+    <!-- 开场壁纸：页面一打开就开始下载（不用等脚本） -->
+    <link rel="preload" as="image" href="./assets/gate/genshin-m.webp" imagesrcset="./assets/gate/genshin-s.webp 900w, ./assets/gate/genshin-m.webp 1600w, ./assets/gate/genshin.webp 3200w" imagesizes="(max-width: 767px) 130vw, 178vh" fetchpriority="high" />
+    <link rel="preload" as="image" href="./assets/gate/hsr-m.webp" imagesrcset="./assets/gate/hsr-s.webp 900w, ./assets/gate/hsr-m.webp 1600w, ./assets/gate/hsr.webp 3200w" imagesizes="(max-width: 767px) 130vw, 178vh" fetchpriority="high" />
+    <link rel="preload" as="image" href="./assets/gate/zzz-m.webp" imagesrcset="./assets/gate/zzz-s.webp 900w, ./assets/gate/zzz-m.webp 1600w, ./assets/gate/zzz.webp 3200w" imagesizes="(max-width: 767px) 130vw, 178vh" fetchpriority="high" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="集米桶" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <script>
+      // 页面画出来之前先定好白天 / 黑夜，避免闪一下（规则和 src/ui/theme.ts 一致）
+      (function () {
+        var pref = 'dark';
+        try {
+          pref = (JSON.parse(localStorage.getItem('gacha-tool:app') || '{}').state || {}).theme || 'dark';
+        } catch (e) {}
+        document.documentElement.dataset.theme = pref === 'auto' ? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark') : pref;
+      })();
+      // 保险：网站更新后，如果拿到的是旧页面、它要的脚本 / 样式在服务器上已经没有了（加载失败），自动刷新一次换成新版
+      window.addEventListener(
+        'error',
+        function (e) {
+          var t = e.target;
+          if (!t || (t.tagName !== 'SCRIPT' && t.tagName !== 'LINK')) return;
+          var src = String(t.src || t.href || '');
+          if (src.indexOf('/static/') < 0) return;
+          try {
+            if (sessionStorage.getItem('gacha-tool:reloaded') === '1') return;
+            sessionStorage.setItem('gacha-tool:reloaded', '1');
+          } catch (x) {
+            return;
+          }
+          location.reload();
+        },
+        true,
+      );
+    </script>
+    <script type="module" crossorigin src="./static/index-k2_5LxVk.js"></script>
+    <link rel="modulepreload" crossorigin href="./static/rolldown-runtime-BCiCTKAo.js">
+    <link rel="modulepreload" crossorigin href="./static/i18n-CDVlhbwf.js">
+    <link rel="modulepreload" crossorigin href="./static/platform-BTNgbh6z.js">
+    <link rel="modulepreload" crossorigin href="./static/backStack-BYc4gf3M.js">
+    <link rel="modulepreload" crossorigin href="./static/rules-BVyarIs1.js">
+    <link rel="modulepreload" crossorigin href="./static/pity-DE_CF81v.js">
+    <link rel="stylesheet" crossorigin href="./static/index-CU_6T8BU.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

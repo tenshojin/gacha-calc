@@ -7,9 +7,10 @@
  * - 抽卡开场动画（clips/*.mp4）：地址带内容指纹（?h=…），下载过一次就一直用缓存，
  *   不再每次打开都重下；视频播放器的分段请求（Range）从缓存里切给它。
  * - 动画清单（clips/manifest.json）：每次先联网取最新，断网才用缓存。
+ * - 线上卡池镜像（live/）：不经过这里，页面自己缓存。
  */
 // 网页和资料（data/）改了就把 PAGE_VERSION 加一；图片（同名文件重做过）改了才加 IMG_VERSION，免得大家重新下载所有图片
-const PAGE_VERSION = 'v5';
+const PAGE_VERSION = 'v6';
 const IMG_VERSION = 'v2';
 const PAGE_CACHE = `pages-${PAGE_VERSION}`;
 const IMG_CACHE = `images-${IMG_VERSION}`;
@@ -37,6 +38,8 @@ self.addEventListener('fetch', (event) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
+  // 线上卡池镜像（live/）：直接走网络，页面自己存了上一份（断网时用）；这里不缓存，免得拿到旧名单
+  if (url.pathname.includes('/live/')) return;
 
   if (url.pathname.includes('/clips/')) {
     event.respondWith(url.pathname.endsWith('.mp4') ? clip(req, url) : networkFirst(req));
