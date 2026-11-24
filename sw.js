@@ -10,7 +10,7 @@
  * - 线上卡池镜像（live/）：不经过这里，页面自己缓存。
  */
 // 网页和资料（data/）改了就把 PAGE_VERSION 加一；图片（同名文件重做过）改了才加 IMG_VERSION，免得大家重新下载所有图片
-const PAGE_VERSION = 'v6';
+const PAGE_VERSION = 'v7';
 const IMG_VERSION = 'v2';
 const PAGE_CACHE = `pages-${PAGE_VERSION}`;
 const IMG_CACHE = `images-${IMG_VERSION}`;
@@ -42,7 +42,13 @@ self.addEventListener('fetch', (event) => {
   if (url.pathname.includes('/live/')) return;
 
   if (url.pathname.includes('/clips/')) {
-    event.respondWith(url.pathname.endsWith('.mp4') ? clip(req, url) : networkFirst(req));
+    if (!url.pathname.endsWith('.mp4')) {
+      event.respondWith(networkFirst(req));
+      return;
+    }
+    const result = clip(req, url);
+    event.respondWith(result.then(({ response }) => response));
+    event.waitUntil(result.then(({ stored }) => stored).catch(() => undefined));
     return;
   }
 
@@ -123,33 +129,31 @@ async function clip(req, url) {
   const hit = await cache.match(key);
   const range = req.headers.get('range');
 
-  if (hit) return range ? sliceRange(hit, range) : hit;
+  if (hit) return { response: range ? await sliceRange(hit, range) : hit };
   // 视频播放器边放边下（分段请求）：直接走网络，不存半截文件
-  if (range) return fetch(req);
+  if (range) return { response: await fetch(req) };
 
-  const res = await fetch(key);
-  if (res.ok && res.status === 200) {
-    // 同一个文件的旧版本（指纹不同）删掉，缓存不会越积越多
+  const response = await fetch(req);
+  if (!response.ok || response.status !== 200) return { response };
+  // 先把响应交给播放器或预取，缓存写完后再清理同一路径的旧指纹。
+  const stored = cache.put(key, response.clone()).then(async () => {
     const old = await cache.keys();
     await Promise.all(old.filter((r) => new URL(r.url).pathname === url.pathname && r.url !== key).map((r) => cache.delete(r)));
-    await cache.put(key, res.clone());
-  }
-  return res;
+  });
+  return { response, stored };
 }
 
 async function sliceRange(res, range) {
-  const buf = await res.arrayBuffer();
-  const size = buf.byteLength;
-  const m = /bytes=(\d*)-(\d*)/.exec(range);
-  let start = m && m[1] ? Number(m[1]) : 0;
-  let end = m && m[2] ? Number(m[2]) : size - 1;
-  if (m && !m[1] && m[2]) {
-    start = size - Number(m[2]);
-    end = size - 1;
+  const blob = await res.blob();
+  const { size } = blob;
+  const m = /^bytes=(\d*)-(\d*)$/i.exec(range);
+  const suffix = m?.[1] === '';
+  const start = suffix ? Math.max(0, size - Number(m[2])) : Number(m?.[1]);
+  const end = !suffix && m?.[2] ? Math.min(size - 1, Number(m[2])) : size - 1;
+  if (!m || (!m[1] && !m[2]) || start >= size || start > end) {
+    return new Response(null, { status: 416, headers: { 'Content-Range': `bytes */${size}` } });
   }
-  end = Math.min(end, size - 1);
-  if (start >= size || start > end) return new Response(null, { status: 416, headers: { 'Content-Range': `bytes */${size}` } });
-  return new Response(buf.slice(start, end + 1), {
+  return new Response(blob.slice(start, end + 1), {
     status: 206,
     headers: {
       'Content-Type': res.headers.get('Content-Type') || 'video/mp4',
