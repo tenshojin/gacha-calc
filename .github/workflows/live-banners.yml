@@ -1,0 +1,52 @@
+# 卡池镜像：每 2 小时从米哈游官方卡池公示拉一次名单，有变化就提交到 live/（推送后 GitHub Pages 自动上线）。
+# 网页和安卓 App 联网时读 live/{game}.json：官方一公布下一期，页面到点就会切换，不用重新发布。
+# 名单里有本地资料没有的角色 / 武器（新角色）时，开一个 issue 提醒作者跑完整的资料更新。
+# 这个文件由源码仓库的 site/ 目录同步过来（scripts/sync-site.mjs），不要直接在这里改。
+name: live-banners
+
+on:
+  schedule:
+    - cron: '23 */2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: live-banners
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # 网页仓库有几百 MB 图片和视频：只取用得到的几个文件
+          filter: blob:none
+          sparse-checkout: |
+            .github
+            live
+            data/known-names.json
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: 从官方拉卡池名单
+        run: node .github/scripts/live-banners.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: 有变化就提交
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add live
+          if git diff --cached --quiet; then
+            echo "名单没有变化"
+            exit 0
+          fi
+          git commit -m "卡池镜像：官方卡池名单有变化"
+          git pull --rebase
+          git push
